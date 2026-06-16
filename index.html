@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<!--
+  ================================================================================
+  NCC — Noleggio Con Conducente | Autista Privato
+  Single-page website. Strict black & white theme.
+
+  HOW TO USE:
+  1. Open this file in any browser to preview.
+  2. Search for [YOUR_ and replace with your real info.
+  3. Search for [YOUR_PHOTO] and replace with real car photos.
+  4. Upload to any web host (Netlify, GitHub Pages, Vercel, etc.).
+
+  THEME: Only #000, #fff, and gray tones. No other colors.
+  ================================================================================
+-->
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NCC — Noleggio Con Conducente | Servizio Auto di Lusso</title>
+<meta name="description" content="Servizio NCC professionale. Trasferimenti aeroportuali, eventi, auto di lusso con autista privato.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',-apple-system,sans-serif;color:#111;background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:0 28px}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #eee;transition:box-shadow 0.3s}
+.nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,0.04)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo-mark{width:42px;height:42px;background:#111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;color:#fff;font-weight:700}
+.nav-logo-text{font-size:1.1rem;font-weight:700;color:#111}
+.nav-logo-text span{font-weight:400;color:#999}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links a{color:#666;text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:#111}
+.nav-cta{background:#111;color:#fff!important;padding:10px 22px;border-radius:8px;font-weight:600!important;transition:all 0.3s!important}
+.nav-cta:hover{background:#000;transform:translateY(-1px)}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.nav-toggle span{display:block;width:24px;height:2px;background:#111;border-radius:1px;transition:0.3s}
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{min-height:100vh;display:flex;align-items:center;background:#0a0a0a;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,0.04),transparent 60%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:680px;padding:120px 0 80px}
+.hero-tag{display:inline-block;color:#999;font-size:0.72rem;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,7vw,4.8rem);font-weight:700;color:#fff;line-height:1.06;margin-bottom:24px;letter-spacing:-1px}
+.hero h1 em{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;color:#aaa}
+.hero p{font-size:1.1rem;color:#999;line-height:1.8;margin-bottom:40px;max-width:480px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:15px 34px;border-radius:10px;font-weight:600;font-size:0.9rem;transition:all 0.3s;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:#fff;color:#111}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,255,255,0.15)}
+.btn-outline{background:transparent;color:#ccc;border:1.5px solid rgba(255,255,255,0.2)}
+.btn-outline:hover{border-color:#fff;color:#fff}
+.btn-dark{background:#111;color:#fff}
+.btn-dark:hover{background:#000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.btn-sm{padding:10px 20px;font-size:0.82rem;border-radius:8px}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+section{padding:100px 0}
+section:not(.hero):nth-of-type(odd){background:#fafafa}
+section:not(.hero):nth-of-type(even){background:#fff}
+.section-header{text-align:center;margin-bottom:68px}
+.section-tag{display:inline-block;color:#777;font-weight:600;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;background:#f0f0f0;padding:5px 14px;border-radius:50px}
+.section-header h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:700;color:#111;letter-spacing:-0.5px;margin-bottom:14px}
+.section-header p{color:#888;font-size:1rem;max-width:520px;margin:0 auto;line-height:1.7}
+.section-line{width:44px;height:2px;background:#111;margin:20px auto 0;border-radius:1px}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+.stats-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:860px;margin:0 auto}
+.stat-card{text-align:center;padding:28px 16px}
+.stat-num{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:700;color:#111}
+.stat-label{color:#888;font-size:0.82rem;margin-top:6px;font-weight:500}
+
+/* ============================================================
+   ROUTE CALCULATOR
+   ============================================================ */
+.calc-card{background:#fff;border:1px solid #eee;border-radius:18px;padding:44px 50px;max-width:780px;margin:0 auto;box-shadow:0 2px 4px rgba(0,0,0,0.02),0 8px 28px rgba(0,0,0,0.04)}
+.calc-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#111;text-align:center;margin-bottom:6px}
+.calc-subtitle{text-align:center;color:#999;font-size:0.9rem;margin-bottom:36px}
+.calc-fields{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:end}
+.calc-field label{display:block;font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:2px;color:#777;margin-bottom:8px}
+.calc-field input{width:100%;padding:14px 16px;border:2px solid #eee;border-radius:10px;font-size:0.95rem;font-family:inherit;color:#111;background:#fafafa;transition:all 0.25s}
+.calc-field input:focus{outline:none;border-color:#111;background:#fff;box-shadow:0 0 0 3px rgba(0,0,0,0.04)}
+.calc-field input::placeholder{color:#ccc}
+.calc-swap{width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid #eee;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#999;flex-shrink:0;transition:all 0.25s}
+.calc-swap:hover{border-color:#111;color:#111}
+.calc-submit-row{text-align:center;margin-top:28px}
+.calc-result{margin-top:32px;padding:28px 32px;border-radius:14px;display:none;animation:slideIn 0.4s ease;border:2px solid #eee;background:#fafafa}
+.calc-result.show{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.calc-result-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.calc-route{font-weight:700;font-size:1.05rem;color:#111}
+.calc-route .arr{color:#bbb;margin:0 10px}
+.calc-badge{background:#111;color:#fff;padding:5px 16px;border-radius:50px;font-size:0.75rem;font-weight:700}
+.calc-result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.calc-stat{background:#fff;border-radius:12px;padding:20px;text-align:center;border:1px solid #eee}
+.calc-stat .val{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#111}
+.calc-stat .lbl{font-size:0.7rem;color:#999;margin-top:4px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.calc-note{margin-top:18px;font-size:0.8rem;color:#bbb;font-style:italic}
+.calc-cta{margin-top:22px;text-align:center}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
+.service-card{background:#fff;border:1px solid #eee;border-radius:14px;padding:38px 32px;transition:all 0.35s;position:relative;overflow:hidden}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.05);border-color:#ddd}
+.service-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:#e8e8e8;line-height:1;margin-bottom:14px}
+.service-card h3{font-size:1.05rem;font-weight:700;color:#111;margin-bottom:8px}
+.service-card p{color:#888;font-size:0.85rem;line-height:1.65}
+
+/* ============================================================
+   FLEET
+   ============================================================ */
+.fleet-grid{display:flex;justify-content:center;gap:26px;max-width:420px;margin:0 auto}
+.fleet-card{background:#fafafa;border:1px solid #eee;border-radius:18px;overflow:hidden;transition:all 0.35s}
+.fleet-card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,0.05)}
+.fleet-img{height:210px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#f0f0f0,#e4e4e4);position:relative}
+.fleet-tag{position:absolute;top:18px;right:18px;background:#111;color:#fff;padding:5px 16px;border-radius:50px;font-size:0.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.fleet-info{padding:26px 30px}
+.fleet-info h3{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#111}
+.fleet-info .cat{color:#999;font-size:0.82rem;margin-bottom:14px}
+.fleet-attrs{display:flex;gap:16px;flex-wrap:wrap}
+.fleet-attrs span{display:flex;align-items:center;gap:6px;color:#888;font-size:0.8rem}
+.fleet-attrs span::before{content:'';width:5px;height:5px;background:#111;border-radius:50%;flex-shrink:0}
+
+/* ============================================================
+   WHY ME
+   ============================================================ */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px}
+.why-item{text-align:center;padding:38px 22px;transition:transform 0.3s}
+.why-item:hover{transform:translateY(-4px)}
+.why-dot{width:56px;height:56px;margin:0 auto 20px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;border:2px solid #eee;transition:all 0.3s}
+.why-dot::after{content:'';width:10px;height:10px;background:#111;border-radius:50%;transition:transform 0.3s}
+.why-item:hover .why-dot{border-color:#111;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+.why-item:hover .why-dot::after{transform:scale(1.4)}
+.why-item h3{font-size:1rem;font-weight:700;color:#111;margin-bottom:8px}
+.why-item p{color:#888;font-size:0.84rem;line-height:1.6}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-form{background:#fafafa;border:1px solid #eee;border-radius:18px;padding:38px 36px}
+.contact-form h3{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#111;margin-bottom:24px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;color:#777;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:13px 16px;border:2px solid #eee;border-radius:10px;font-size:0.9rem;font-family:inherit;color:#111;background:#fff;transition:all 0.25s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,0.04)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-submit{width:100%;padding:15px;background:#111;color:#fff;font-weight:700;font-size:0.9rem;border:none;border-radius:10px;cursor:pointer;transition:all 0.3s;margin-top:4px}
+.form-submit:hover{background:#000;transform:translateY(-1px)}
+.contact-info h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:#111;margin-bottom:12px}
+.contact-info>p{color:#888;margin-bottom:28px;font-size:0.95rem;line-height:1.7}
+.contact-row{display:flex;align-items:center;gap:14px;padding:16px;background:#fafafa;border:1px solid #eee;border-radius:12px;margin-bottom:14px;transition:all 0.25s}
+.contact-row:hover{border-color:#ddd}
+.contact-icon{width:44px;height:44px;border-radius:10px;background:#fff;border:2px solid #eee;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.contact-icon svg{width:20px;height:20px;stroke:#111}
+.contact-row strong{display:block;color:#111;font-size:0.88rem}
+.contact-row span{color:#888;font-size:0.82rem}
+
+/* ============================================================
+   CHAT BUTTONS
+   ============================================================ */
+.chat-links{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.chat-link{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:8px;text-decoration:none;font-size:0.8rem;font-weight:600;color:#fff;transition:all 0.3s}
+.chat-link svg{width:20px;height:20px;fill:#fff;flex-shrink:0}
+.chat-link:hover{transform:translateY(-1px)}
+.chat-link.wa{background:#111}.chat-link.wa:hover{background:#222;box-shadow:0 6px 20px rgba(0,0,0,0.2)}
+.chat-link.wx{background:#333}.chat-link.wx:hover{background:#444;box-shadow:0 6px 20px rgba(0,0,0,0.2)}
+
+/* Floating */
+.float-wa,.float-wx{position:fixed;right:26px;z-index:997;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.18);transition:all 0.3s;text-decoration:none}
+.float-wa svg,.float-wx svg{width:20px;height:20px;fill:#fff}
+.float-wa{background:#111;bottom:140px}.float-wx{background:#333;bottom:88px}
+.float-wa:hover,.float-wx:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:#0a0a0a;color:#999;padding:60px 0 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer h4{color:#fff;font-size:0.85rem;margin-bottom:16px;font-weight:700}
+.footer p,.footer a{font-size:0.82rem;line-height:1.7;color:#999}
+.footer a{text-decoration:none;transition:color 0.2s}.footer a:hover{color:#fff}
+.footer ul{list-style:none}.footer ul li{margin-bottom:8px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.78rem}
+
+/* ============================================================
+   SCROLL TO TOP
+   ============================================================ */
+.scroll-top{position:fixed;bottom:28px;right:26px;z-index:998;width:44px;height:44px;border-radius:12px;background:#111;color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.3s;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.scroll-top.visible{opacity:1;visibility:visible}
+.scroll-top:hover{background:#000;transform:translateY(-2px)}
+
+/* ============================================================
+   TOAST & MODAL
+   ============================================================ */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:#111;color:#fff;padding:14px 28px;border-radius:10px;font-weight:600;font-size:0.82rem;z-index:9999;transition:transform 0.4s ease;box-shadow:0 10px 32px rgba(0,0,0,0.3)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all 0.3s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{background:#fff;border-radius:20px;padding:44px 40px;max-width:520px;width:92%;box-shadow:0 24px 64px rgba(0,0,0,0.25);position:relative;max-height:90vh;overflow-y:auto;transform:translateY(20px);transition:transform 0.35s}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border-radius:50%;border:2px solid #eee;background:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#999;transition:all 0.2s;line-height:1}
+.modal-close:hover{background:#f5f5f5;color:#111}
+.modal h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#111;margin-bottom:6px}
+.modal .mod-sub{color:#888;font-size:0.85rem;margin-bottom:24px;line-height:1.6}
+.modal .mod-summary{background:#fafafa;border:1px solid #eee;border-radius:10px;padding:14px 18px;margin-bottom:22px;font-size:0.85rem;color:#555}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:960px){
+  .nav-links{display:none}
+  .nav-links.show{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(255,255,255,0.99);padding:28px;gap:20px;border-top:1px solid #eee;box-shadow:0 12px 32px rgba(0,0,0,0.05)}
+  .nav-toggle{display:flex}
+  .calc-fields{grid-template-columns:1fr}
+  .calc-swap{margin:0 auto;transform:rotate(90deg)}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .field-row{grid-template-columns:1fr}
+  .stats-wrap{grid-template-columns:repeat(2,1fr)}
+  .float-wa{bottom:134px;right:18px}.float-wx{bottom:84px;right:18px}
+}
+@media(max-width:600px){
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{text-align:center;justify-content:center}
+  .footer-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .fleet-grid{grid-template-columns:1fr}
+  .calc-card{padding:28px 18px}
+  .container{padding:0 18px}
+  section{padding:70px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">N</div>
+      <span class="nav-logo-text">NCC <span>Autista Privato</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#calcola">Calcola Preventivo</a></li>
+      <li><a href="#servizi">Servizi</a></li>
+      <li><a href="#flotta">Flotta</a></li>
+      <li><a href="#perche">Perché Io</a></li>
+      <li><a href="#contatti" class="nav-cta">Contattami</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero-content">
+      <p class="hero-tag">Noleggio Con Conducente</p>
+      <h1>Servizio NCC<br><em>Professionale</em></h1>
+      <p>Un autista privato al tuo servizio. Trasferimenti aeroportuali, eventi esclusivi e viaggi d'affari con auto di lusso. Puntualità, discrezione e comfort.</p>
+      <div class="hero-actions">
+        <a href="#calcola" class="btn btn-primary">Calcola Preventivo</a>
+        <a href="#servizi" class="btn btn-outline">Scopri i Servizi &nearr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" style="padding:44px 0;background:#fff">
+  <div class="container">
+    <div class="stats-wrap">
+      <div class="stat-card"><div class="stat-num">15+</div><div class="stat-label">Anni di Esperienza</div></div>
+      <div class="stat-card"><div class="stat-num">8.500+</div><div class="stat-label">Corse Completate</div></div>
+      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Clienti Soddisfatti</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Lingue Parlate</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE CALCULATOR -->
+<section id="calcola">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Preventivo Rapido</span>
+      <h2>Calcola il Tuo Tragitto</h2>
+      <p>Inserisci partenza e arrivo per una stima immediata di chilometri e costo.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="calc-card">
+      <h3>Dove vuoi andare?</h3>
+      <p class="calc-subtitle">Stima gratuita e immediata della distanza</p>
+      <div class="calc-fields">
+        <div class="calc-field"><label for="dep">Partenza</label><input type="text" id="dep" list="cityList" placeholder="Città o aeroporto..." autocomplete="off"></div>
+        <button class="calc-swap" id="swapBtn" aria-label="Inverti"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></button>
+        <div class="calc-field"><label for="arr">Arrivo</label><input type="text" id="arr" list="cityList" placeholder="Città o aeroporto..." autocomplete="off"></div>
+      </div>
+      <datalist id="cityList"></datalist>
+      <div class="calc-submit-row"><button class="btn btn-dark" id="calcBtn">Calcola Distanza</button></div>
+      <div class="calc-result" id="calcResult"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="servizi">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Cosa Offro</span>
+      <h2>I Miei Servizi</h2>
+      <p>Un servizio personale, senza intermediari. Ogni corsa è pensata su misura per te.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card"><div class="service-num">01</div><h3>Transfer Aeroportuale</h3><p>Ti aspetto al terminal con cartello personalizzato, monitoro il volo e ti aiuto con i bagagli. Servizio da e per tutti gli aeroporti italiani.</p></div>
+      <div class="service-card"><div class="service-num">02</div><h3>Eventi & Cerimonie</h3><p>Auto di lusso con allestimento curato per matrimoni, lauree e serate importanti. Eleganza e professionalità garantite.</p></div>
+      <div class="service-card"><div class="service-num">03</div><h3>Business & Corporate</h3><p>Trasferimenti executive per dirigenti e professionisti. Massima riservatezza, flessibilità e comfort totale.</p></div>
+      <div class="service-card"><div class="service-num">04</div><h3>Tour & Itinerari</h3><p>Scopri l'Italia con chi conosce il territorio. Itinerari tra città d'arte, borghi storici, cantine e paesaggi.</p></div>
+      <div class="service-card"><div class="service-num">05</div><h3>Noleggio Orario</h3><p>Auto con autista a disposizione per mezza giornata, giornata intera o periodi più lunghi.</p></div>
+      <div class="service-card"><div class="service-num">06</div><h3>Fiere & Congressi</h3><p>Servizio dedicato per Salone del Mobile, Vinitaly e tutte le principali fiere italiane.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLEET -->
+<section id="flotta">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">La Mia Flotta</span>
+      <h2>Auto di Prestigio</h2>
+      <p>Un veicolo di alta gamma selezionato personalmente, sempre in condizioni impeccabili.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="fleet-grid">
+      <!-- [YOUR_PHOTO] Replace with: background:url('your-car.jpg') center/cover -->
+      <div class="fleet-card">
+        <div class="fleet-img"><svg width="170" height="70" viewBox="0 0 320 120"><rect x="50" y="28" width="180" height="48" rx="18" fill="#111" opacity="0.65"/><rect x="45" y="50" width="190" height="26" rx="10" fill="#333"/><circle cx="95" cy="78" r="17" fill="none" stroke="#111" stroke-width="5"/><circle cx="225" cy="78" r="17" fill="none" stroke="#111" stroke-width="5"/></svg></div>
+        <div class="fleet-info"><h3>Mercedes Classe E</h3><p class="cat">Berlina Premium</p><div class="fleet-attrs"><span>3 passeggeri</span><span>Wi-Fi a bordo</span><span>Clima bizona</span><span>Interni in pelle</span></div></div>
+      </div>
+    </div>    </div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="perche">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">I Miei Valori</span>
+      <h2>Perché Scegliermi</h2>
+      <p>Un servizio gestito con passione e dedizione. Non un call center, ma un professionista.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-dot"></div><h3>Puntualità Assoluta</h3><p>Pianifico ogni tragitto monitorando il traffico in tempo reale.</p></div>
+      <div class="why-item"><div class="why-dot"></div><h3>Trasparenza Totale</h3><p>Preventivo chiaro e dettagliato prima di ogni corsa. Nessuna sorpresa.</p></div>
+      <div class="why-item"><div class="why-dot"></div><h3>Professionalità</h3><p>Abilitato NCC, elegante, discreto e multilingue. Servizio di alto livello.</p></div>
+      <div class="why-item"><div class="why-dot"></div><h3>Sicurezza</h3><p>Veicoli revisionati, assicurazione completa e guida prudente.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contatti">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Contattami</span>
+      <h2>Parliamone</h2>
+      <p>Contattami direttamente. Ti rispondo personalmente entro pochi minuti.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <form class="contact-form" id="contactForm">
+        <h3>Richiedi un Preventivo</h3>
+        <div class="field-row">
+          <div class="field"><label for="name">Nome *</label><input type="text" id="name" placeholder="Il tuo nome..." required></div>
+          <div class="field"><label for="phone">Telefono *</label><input type="tel" id="phone" placeholder="[YOUR_PHONE]" required></div>
+        </div>
+        <div class="field"><label for="email">Email *</label><input type="email" id="email" placeholder="La tua email..." required></div>
+        <div class="field-row">
+          <div class="field"><label for="service">Servizio</label><select id="service"><option value="">Seleziona...</option><option value="airport">Transfer Aeroportuale</option><option value="event">Eventi & Cerimonie</option><option value="business">Business & Corporate</option><option value="tour">Tour & Itinerari</option><option value="hourly">Noleggio Orario</option><option value="fair">Fiere & Congressi</option></select></div>
+          <div class="field"><label for="date">Data</label><input type="date" id="date"></div>
+        </div>
+        <div class="field"><label for="msg">Note</label><textarea id="msg" rows="3" placeholder="Orario, passeggeri, richieste particolari..."></textarea></div>
+        <button type="submit" class="form-submit">Invia Richiesta</button>
+      </form>
+      <div class="contact-info">
+        <h2>Contatti Diretti</h2>
+        <p>Parla direttamente con me, senza intermediari. Scegli il canale che preferisci.</p>
+        <div class="contact-row">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><strong>Telefono</strong><span>[YOUR_PHONE]</span></div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><strong>Email</strong><span>[YOUR_EMAIL]</span></div>
+        </div>
+        <div class="chat-links">
+          <a href="https://wa.me/[YOUR_PHONE_INTL]" target="_blank" rel="noopener" class="chat-link wa">
+            <svg viewBox="0 0 24 24"><path d="M17.5 14.3c-.3-.1-1.8-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1.1 2.9 1.2 3.1.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 21.8c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.7 1 1-3.6-.2-.4c-.9-1.6-1.5-3.3-1.5-5.2 0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7-.1 5.4-4.5 9.8-9.9 9.8M20.4 3.6C18.2 1.4 15.5.1 12.5 0 5.9 0 .6 5.3.6 11.9c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7c1.7 1 3.7 1.5 5.7 1.5h0c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4"/></svg>
+            WhatsApp
+          </a>
+          <a href="weixin://dl/chat?[YOUR_WECHAT_ID]" target="_blank" rel="noopener" class="chat-link wx">
+            <svg viewBox="0 0 24 24"><path d="M8.7 2.2C3.9 2.2 0 5.5 0 9.5c0 2.2 1.2 4.2 3 5.6.1 0 .2.1.2.7l-.4 1.5c0 .1 0 .1 0 .2 0 .2.1.3.3.3.1 0 .1 0 .2-.1l1.9-1.1c.2-.1.5-.1.7-.1 1 .3 2 .4 2.8.4.3 0 .5 0 .8-.1-.9-2.6.2-5 1.9-6.4 1.7-1.4 3.9-2 5.9-1.8-.6-3.6-4.2-6.3-8.6-6.3zm-2.9 3.8c.6 0 1.2.5 1.2 1.2 0 .6-.5 1.2-1.2 1.2-.6 0-1.2-.5-1.2-1.2 0-.7.5-1.2 1.2-1.2zm5.8 0c.6 0 1.2.5 1.2 1.2 0 .6-.5 1.2-1.2 1.2-.6 0-1.2-.5-1.2-1.2 0-.7.5-1.2 1.2-1.2zm3.4 5.3c-3 0-5.4 2-5.4 4.6 0 2.5 2.4 4.6 5.4 4.6.3 0 .6 0 .9-.1.2 0 .4 0 .5.1l1.6.8c0 0 .1 0 .1 0 .1 0 .2-.1.2-.2 0-.1 0-.1 0-.2l-.3-1c0-.2.1-.3.2-.5 1.2-.6 2-1.7 2-2.9 0-2.6-2.7-4.6-6-4.6zm-2.5 2.5c.5 0 .9.4.9.9 0 .5-.4.9-.9.9-.5 0-.9-.4-.9-.9 0-.5.4-.9.9-.9zm4.7 0c.5 0 .9.4.9.9 0 .5-.4.9-.9.9-.5 0-.9-.4-.9-.9 0-.5.4-.9.9-.9z"/></svg>
+            WeChat
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><h4>NCC Autista Privato</h4><p>Servizio Noleggio con Conducente gestito personalmente. Professionalità, puntualità e auto di lusso. La tua eccellenza in movimento dal 2010.</p></div>
+      <div><h4>Servizi</h4><ul><li><a href="#servizi">Transfer Aeroportuale</a></li><li><a href="#servizi">Eventi & Cerimonie</a></li><li><a href="#servizi">Business & Corporate</a></li><li><a href="#servizi">Tour & Itinerari</a></li></ul></div>
+      <div><h4>Navigazione</h4><ul><li><a href="#home">Home</a></li><li><a href="#calcola">Calcola Preventivo</a></li><li><a href="#flotta">La Flotta</a></li><li><a href="#contatti">Contatti</a></li></ul></div>
+      <div><h4>Info</h4><ul><li>Licenza NCC [YOUR_CITY]</li><li>Regolarmente Assicurato</li><li><a href="#">Privacy Policy</a></li><li><a href="#">Cookie Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 NCC Autista Privato</p>
+      <p>P.IVA [YOUR_VAT] &middot; <a href="#">Privacy</a> &middot; <a href="#">Cookie</a></p>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<a href="https://wa.me/[YOUR_PHONE_INTL]" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.3c-.3-.1-1.8-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1.1 2.9 1.2 3.1.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 21.8c-1.7 0-3.4-.5-4.9-1.3l-.4-.2-3.7 1 1-3.6-.2-.4c-.9-1.6-1.5-3.3-1.5-5.2 0-5.4 4.4-9.8 9.9-9.8 2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.4 2.9 7-.1 5.4-4.5 9.8-9.9 9.8M20.4 3.6C18.2 1.4 15.5.1 12.5 0 5.9 0 .6 5.3.6 11.9c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7c1.7 1 3.7 1.5 5.7 1.5h0c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4"/></svg></a>
+<a href="weixin://dl/chat?[YOUR_WECHAT_ID]" target="_blank" rel="noopener" class="float-wx" aria-label="WeChat"><svg viewBox="0 0 24 24"><path d="M8.7 2.2C3.9 2.2 0 5.5 0 9.5c0 2.2 1.2 4.2 3 5.6.1 0 .2.1.2.7l-.4 1.5c0 .1 0 .1 0 .2 0 .2.1.3.3.3.1 0 .1 0 .2-.1l1.9-1.1c.2-.1.5-.1.7-.1 1 .3 2 .4 2.8.4.3 0 .5 0 .8-.1-.9-2.6.2-5 1.9-6.4 1.7-1.4 3.9-2 5.9-1.8-.6-3.6-4.2-6.3-8.6-6.3zm-2.9 3.8c.6 0 1.2.5 1.2 1.2 0 .6-.5 1.2-1.2 1.2-.6 0-1.2-.5-1.2-1.2 0-.7.5-1.2 1.2-1.2zm5.8 0c.6 0 1.2.5 1.2 1.2 0 .6-.5 1.2-1.2 1.2-.6 0-1.2-.5-1.2-1.2 0-.7.5-1.2 1.2-1.2zm3.4 5.3c-3 0-5.4 2-5.4 4.6 0 2.5 2.4 4.6 5.4 4.6.3 0 .6 0 .9-.1.2 0 .4 0 .5.1l1.6.8c0 0 .1 0 .1 0 .1 0 .2-.1.2-.2 0-.1 0-.1 0-.2l-.3-1c0-.2.1-.3.2-.5 1.2-.6 2-1.7 2-2.9 0-2.6-2.7-4.6-6-4.6zm-2.5 2.5c.5 0 .9.4.9.9 0 .5-.4.9-.9.9-.5 0-.9-.4-.9-.9 0-.5.4-.9.9-.9zm4.7 0c.5 0 .9.4.9.9 0 .5-.4.9-.9.9-.5 0-.9-.4-.9-.9 0-.5.4-.9.9-.9z"/></svg></a>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Torna in cima"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="quoteModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <h3>Ricevi il Tuo Preventivo</h3>
+    <p class="mod-sub">Compila i campi e ti risponderò con un preventivo dettagliato per il tuo tragitto.</p>
+    <div class="mod-summary" id="modalRoute"></div>
+    <form id="modalForm">
+      <div class="field-row">
+        <div class="field"><label for="mName">Nome *</label><input type="text" id="mName" placeholder="Il tuo nome..." required></div>
+        <div class="field"><label for="mPhone">Telefono *</label><input type="tel" id="mPhone" placeholder="[YOUR_PHONE]" required></div>
+      </div>
+      <div class="field"><label for="mEmail">Email *</label><input type="email" id="mEmail" placeholder="La tua email..." required></div>
+      <div class="field"><label for="mMsg">Note</label><textarea id="mMsg" rows="3" placeholder="Orario, passeggeri, richieste..."></textarea></div>
+      <button type="submit" class="form-submit">Invia Richiesta</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CITY DATABASE — for route calculator autocomplete
+// ============================================================
+const CITIES={
+  'milano':{name:'Milano',lat:45.4642,lng:9.1900},'roma':{name:'Roma',lat:41.9028,lng:12.4964},
+  'firenze':{name:'Firenze',lat:43.7696,lng:11.2558},'napoli':{name:'Napoli',lat:40.8518,lng:14.2681},
+  'torino':{name:'Torino',lat:45.0703,lng:7.6869},'bologna':{name:'Bologna',lat:44.4949,lng:11.3426},
+  'venezia':{name:'Venezia',lat:45.4408,lng:12.3155},'verona':{name:'Verona',lat:45.4384,lng:10.9916},
+  'genova':{name:'Genova',lat:44.4056,lng:8.9463},'bergamo':{name:'Bergamo',lat:45.6983,lng:9.6773},
+  'como':{name:'Como',lat:45.8080,lng:9.0852},'brescia':{name:'Brescia',lat:45.5416,lng:10.2118},
+  'parma':{name:'Parma',lat:44.8015,lng:10.3280},'modena':{name:'Modena',lat:44.6471,lng:10.9252},
+  'padova':{name:'Padova',lat:45.4064,lng:11.8768},'trieste':{name:'Trieste',lat:45.6495,lng:13.7768},
+  'bari':{name:'Bari',lat:41.1171,lng:16.8719},'palermo':{name:'Palermo',lat:38.1157,lng:13.3615},
+  'catania':{name:'Catania',lat:37.5079,lng:15.0903},'cagliari':{name:'Cagliari',lat:39.2238,lng:9.1217},
+  'perugia':{name:'Perugia',lat:43.1107,lng:12.3908},'ancona':{name:'Ancona',lat:43.6158,lng:13.5189},
+  'pescara':{name:'Pescara',lat:42.4618,lng:14.2161},'lecce':{name:'Lecce',lat:40.3516,lng:18.1718},
+  'siena':{name:'Siena',lat:43.3188,lng:11.3308},'pisa':{name:'Pisa',lat:43.7228,lng:10.4017},
+  'trento':{name:'Trento',lat:46.0748,lng:11.1217},'ravenna':{name:'Ravenna',lat:44.4184,lng:12.2035},
+  'rimini':{name:'Rimini',lat:44.0594,lng:12.5653},'ferrara':{name:'Ferrara',lat:44.8381,lng:11.6199},
+  'monza':{name:'Monza',lat:45.5845,lng:9.2745},'pavia':{name:'Pavia',lat:45.1847,lng:9.1582},
+  'novara':{name:'Novara',lat:45.4470,lng:8.6223},'sanremo':{name:'Sanremo',lat:43.8170,lng:7.7767},
+  'lucca':{name:'Lucca',lat:43.8443,lng:10.5047},'livorno':{name:'Livorno',lat:43.5485,lng:10.3106},
+  'arezzo':{name:'Arezzo',lat:43.4631,lng:11.8783},'udine':{name:'Udine',lat:46.0637,lng:13.2340},
+  'vicenza':{name:'Vicenza',lat:45.5455,lng:11.5354},'treviso':{name:'Treviso',lat:45.6669,lng:12.2430},
+  'olbia':{name:'Olbia',lat:40.9236,lng:9.4964},'messina':{name:'Messina',lat:38.1938,lng:15.5540},
+  'aeroporto malpensa':{name:'Malpensa (MXP)',lat:45.6301,lng:8.7254},
+  'aeroporto linate':{name:'Linate (LIN)',lat:45.4453,lng:9.2779},
+  'aeroporto fiumicino':{name:'Fiumicino (FCO)',lat:41.8003,lng:12.2389},
+  'aeroporto marco polo':{name:'Marco Polo (VCE)',lat:45.5053,lng:12.3519},
+  'aeroporto orio al serio':{name:'Orio al Serio (BGY)',lat:45.6683,lng:9.7002},
+  'malpensa':{name:'Malpensa (MXP)',lat:45.6301,lng:8.7254},
+  'linate':{name:'Linate (LIN)',lat:45.4453,lng:9.2779},
+  'fiumicino':{name:'Fiumicino (FCO)',lat:41.8003,lng:12.2389},
+  'ciampino':{name:'Ciampino (CIA)',lat:41.7994,lng:12.5900},
+  'orio al serio':{name:'Orio al Serio (BGY)',lat:45.6683,lng:9.7002}
+};
+// populate datalist
+const dl=document.getElementById('cityList');
+Object.values(CITIES).forEach(c=>{const o=document.createElement('option');o.value=c.name;dl.appendChild(o)});
+
+// ============================================================
+// ROUTE CALCULATOR
+// ============================================================
+const ROAD=1.35;
+const depInp=document.getElementById('dep'),arrInp=document.getElementById('arr');
+const calcBtn=document.getElementById('calcBtn'),calcRes=document.getElementById('calcResult');
+
+function findCity(q){
+  q=q.trim().toLowerCase();if(!q)return null;
+  if(CITIES[q])return CITIES[q];
+  for(const k of Object.keys(CITIES)){if(CITIES[k].name.toLowerCase()===q||k.includes(q)||CITIES[k].name.toLowerCase().includes(q))return CITIES[k];}
+  const w=q.split(/\s+/);
+  for(const k of Object.keys(CITIES)){const a=[...k.split(/\s+/),...CITIES[k].name.toLowerCase().split(/\s+/)];if(w.some(x=>a.some(y=>y.includes(x)||x.includes(y))))return CITIES[k];}
+  return null;
+}
+function hav(lat1,lng1,lat2,lng2){const R=6371,dlat=(lat2-lat1)*Math.PI/180,dlng=(lng2-lng1)*Math.PI/180;const a=Math.sin(dlat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dlng/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+function calcRoute(){
+  const dep=depInp.value.trim(),arr=arrInp.value.trim();
+  if(!dep||!arr)return toast('Inserisci partenza e arrivo.');
+  if(dep.toLowerCase()===arr.toLowerCase())return toast('Inserisci due località diverse.');
+  const dc=findCity(dep),ac=findCity(arr);
+  if(!dc||!ac){
+    const m=[!dc?dep:null,!ac?arr:null].filter(Boolean).join('</strong> e <strong>');
+    calcRes.className='calc-result show';calcRes.style.textAlign='center';
+    calcRes.innerHTML=`<h4 style="font-family:Playfair Display,serif;font-size:1.1rem;color:#111;margin-bottom:8px">Località non trovata</h4><p style="color:#888;margin-bottom:20px">Non ho trovato <strong>${m}</strong> nel database.</p><button class="btn btn-dark" onclick="openModal('${esc(dep)}','${esc(arr)}')">Richiedi Preventivo</button>`;
+    calcRes.scrollIntoView({behavior:'smooth',block:'nearest'});return;
+  }
+  const sk=hav(dc.lat,dc.lng,ac.lat,ac.lng),rk=Math.round(sk*ROAD);
+  const em=Math.round((rk/75)*60),ts=Math.floor(em/60)>0?`${Math.floor(em/60)}h ${em%60}min`:`${em} min`;
+  const pL=Math.round(rk*1.50),pH=Math.round(rk*2.50);
+  calcRes.className='calc-result show';calcRes.style.textAlign='';
+  calcRes.innerHTML=`
+    <div class="calc-result-header"><div class="calc-route">${dc.name}<span class="arr">&rarr;</span>${ac.name}</div><div class="calc-badge">Stima Tragitto</div></div>
+    <div class="calc-result-grid"><div class="calc-stat"><div class="val">${rk} km</div><div class="lbl">Distanza Stradale</div></div><div class="calc-stat"><div class="val">${ts}</div><div class="lbl">Tempo Stimato</div></div><div class="calc-stat"><div class="val">&euro;${pL} - &euro;${pH}</div><div class="lbl">Prezzo Orientativo</div></div></div>
+    <p class="calc-note">Distanza approssimativa (fattore ${ROAD}x su ${Math.round(sk)} km in linea d'aria). Prezzo esatto su preventivo.</p>
+    <div class="calc-cta"><button class="btn btn-dark" onclick="openModal('${esc(dc.name)}','${esc(ac.name)}','${rk} km','&euro;${pL}-${pH}')">Richiedi un Preventivo per Questo Tragitto</button></div>`;
+  calcRes.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('swapBtn').onclick=()=>{const t=depInp.value;depInp.value=arrInp.value;arrInp.value=t;if(depInp.value.trim()&&arrInp.value.trim())calcRoute();};
+calcBtn.onclick=calcRoute;
+[depInp,arrInp].forEach(i=>i.onkeydown=e=>{if(e.key==='Enter')calcRoute();});
+
+// ============================================================
+// MODAL
+// ============================================================
+const modal=document.getElementById('quoteModal'),modalRoute=document.getElementById('modalRoute'),modalForm=document.getElementById('modalForm');
+function openModal(dep,arr,dist,price){
+  modalRoute.innerHTML=dist?`<strong>Tratta:</strong> ${dep} &rarr; ${arr} &nbsp;&middot;&nbsp; <strong>${dist}</strong> &nbsp;&middot;&nbsp; Stima: <strong>${price}</strong>`:`<strong>Tratta:</strong> ${dep} &rarr; ${arr}`;
+  modal.classList.add('open');document.body.style.overflow='hidden';
+}
+document.getElementById('modalClose').onclick=()=>{modal.classList.remove('open');document.body.style.overflow='';};
+modal.onclick=e=>{if(e.target===modal){modal.classList.remove('open');document.body.style.overflow='';}};
+document.onkeydown=e=>{if(e.key==='Escape'&&modal.classList.contains('open')){modal.classList.remove('open');document.body.style.overflow='';}};
+modalForm.onsubmit=e=>{
+  e.preventDefault();
+  const n=document.getElementById('mName').value.trim(),p=document.getElementById('mPhone').value.trim(),em=document.getElementById('mEmail').value.trim();
+  if(!n||!p||!em)return toast('Compila tutti i campi obbligatori.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return toast('Inserisci un indirizzo email valido.');
+  console.log('📋 Quote:',{name:n,phone:p,email:em,route:modalRoute.textContent});
+  modal.classList.remove('open');document.body.style.overflow='';
+  toast('✅ Richiesta inviata! Ti rispondo entro 30 minuti.',5000);modalForm.reset();
+};
+
+// ============================================================
+// CONTACT FORM
+// ============================================================
+document.getElementById('contactForm').onsubmit=e=>{
+  e.preventDefault();
+  const n=document.getElementById('name').value.trim(),p=document.getElementById('phone').value.trim(),em=document.getElementById('email').value.trim();
+  if(!n||!p||!em)return toast('Compila i campi obbligatori.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em))return toast('Inserisci un indirizzo email valido.');
+  console.log('📋 Contact:',{name:n,phone:p,email:em});
+  toast('✅ Richiesta inviata! Ti rispondo entro 30 minuti.',5000);document.getElementById('contactForm').reset();
+};
+const dInp=document.getElementById('date');if(dInp)dInp.min=new Date().toISOString().split('T')[0];
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+const nav=document.getElementById('nav'),navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks'),stBtn=document.getElementById('scrollTop');
+window.onscroll=()=>{nav.classList.toggle('scrolled',scrollY>60);stBtn.classList.toggle('visible',scrollY>500);};
+navToggle.onclick=()=>{navToggle.classList.toggle('open');navLinks.classList.toggle('show');};
+navLinks.querySelectorAll('a').forEach(l=>l.onclick=()=>{navToggle.classList.remove('open');navLinks.classList.remove('show');});
+const secs=document.querySelectorAll('section[id]'),navAs=document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll',()=>{let c='';secs.forEach(s=>{if(scrollY>=s.offsetTop-120)c=s.getAttribute('id');});navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+c));});
+stBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+// ============================================================
+// TOAST
+// ============================================================
+const toastEl=document.getElementById('toast');let tt;
+function toast(m,d=3500){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toastEl.classList.remove('show'),d);}
+
+// ============================================================
+// SCROLL REVEAL ANIMATION
+// ============================================================
+const rev=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});},{threshold:0.1});
+document.querySelectorAll('.service-card,.fleet-card,.why-item,.calc-card,.contact-row').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='all 0.5s ease';rev.observe(el);});
+addEventListener('load',()=>{document.querySelectorAll('.service-card,.fleet-card,.why-item,.calc-card,.contact-row').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight){el.style.opacity='1';el.style.transform='translateY(0)';}});});
+</script>
+</body>
+</html>
